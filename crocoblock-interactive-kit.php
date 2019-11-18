@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Crocoblock Interactive Kit
+ * Plugin Name: Crocoblock Interactive Bundle
  * Plugin URI:  https://crocoblock.com/
  * Description: Popups library importer
  * Version:     1.0.0

@@ -23,7 +23,7 @@ class API {
 	 * Config properties
 	 */
 	public $plugins_option = 'cpb_included_plugins';
-	public $api = 'http://192.168.9.40/_2018/04_April/crocoblock-api/wp-content/uploads/static/pb-wizard-plugins.json';
+	public $api = 'https://account.crocoblock.com/wp-content/uploads/static/pb-wizard-plugins.json';
 
 	/**
 	 * Error message holder

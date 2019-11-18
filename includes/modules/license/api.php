@@ -24,8 +24,8 @@ class API {
 	 */
 	public $license_option = 'cpb_license';
 	public $plugins_option = 'cpb_included_plugins';
-	public $api            = 'http://192.168.9.40/_2018/04_April/crocoblock-api/';
-	public $item_id        = 722;
+	public $api            = 'https://account.crocoblock.com/';
+	public $item_id        = 98833;
 	public $with_plugins   = array( 1, 2 );
 
 	/**

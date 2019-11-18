@@ -80,8 +80,8 @@ class Dashboard {
 	public function register_menu_page() {
 
 		add_management_page(
-			__( 'Crocoblock Marketing Kit', 'croco-ik' ),
-			__( 'Crocoblock Marketing Kit', 'croco-ik' ),
+			__( 'Crocoblock Interactive Kit', 'croco-ik' ),
+			__( 'Crocoblock Interactive Kit', 'croco-ik' ),
 			'manage_options',
 			$this->page_slug,
 			array( $this, 'render_wizard' )

@@ -23,7 +23,7 @@ class API {
 	 * Config properties
 	 */
 	public $transient_key = 'cpb_popups';
-	public $api = 'http://192.168.9.40/_2018/04_April/crocoblock-api/wp-content/uploads/static/pb-wizard-popups.json';
+	public $api = 'https://account.crocoblock.com/wp-content/uploads/static/pb-wizard-popups.json';
 
 	private $all_popups = null;
 
@@ -31,6 +31,12 @@ class API {
 	 * Error message holder
 	 */
 	private $error = null;
+
+	public function __construct() {
+		if ( ! empty( $_GET['clear_cache'] ) ) {
+			delete_transient( $this->transient_key );
+		}
+	}
 
 	/**
 	 * Get all popups list
