@@ -140,6 +140,10 @@ class JSON_Importer {
 				unset( $item['ID'] );
 			}
 
+			if ( ! empty( $item['meta_input']['_elementor_page_settings']['jet_popup_use_ajax'] ) ) {
+				$item['meta_input']['_elementor_page_settings']['jet_popup_use_ajax'] = '';
+			}
+
 			$new_post_id = wp_insert_post( $item );
 
 			if ( ! $new_post_id ) {

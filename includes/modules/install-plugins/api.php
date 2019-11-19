@@ -30,6 +30,12 @@ class API {
 	 */
 	private $error = null;
 
+	public function __construct() {
+		if ( ! empty( $_GET['clear_cache'] ) ) {
+			delete_transient( $this->plugins_option );
+		}
+	}
+
 	public function get_plugins() {
 
 		$plugins = get_transient( $this->plugins_option );
@@ -42,7 +48,7 @@ class API {
 				return false;
 			}
 
-			set_transient( $this->plugins_option, $plugins, WEEK_IN_SECONDS );
+			set_transient( $this->plugins_option, $plugins, 2 * DAY_IN_SECONDS );
 
 		}
 
