@@ -38,16 +38,16 @@
 							_e( 'Start Import', 'croco-ik' );
 						?></span>
 					</cx-vui-button>
-					<cx-vui-button
+					<a
 						v-if="popup.demo"
-						:size="'mini'"
-						:url="popup.demo"
-						:tag-name="'a'"
+						:href="popup.demo"
+						class="cx-vui-button cx-vui-button--style-default cx-vui-button--size-mini"
+						target="_blank"
 					>
-						<span slot="label"><?php
+						<span class="cx-vui-button__content"><?php
 							_e( 'View Demo', 'croco-ik' );
 						?></span>
-					</cx-vui-button>
+					</a>
 				</div>
 			</div>
 		</div>

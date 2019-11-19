@@ -163,7 +163,7 @@ class Module extends Module_Base {
 		}
 
 		if ( $is_active ) {
-			$page_title = __( 'Crocoblock Marketing Kit installation', 'croco-ik' );
+			$page_title = __( 'Crocoblock Interactive Bundle', 'croco-ik' );
 		} else {
 			$page_title = __( 'Please, enter your license key to start', 'croco-ik' );
 		}

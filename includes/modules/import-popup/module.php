@@ -3,6 +3,7 @@ namespace Croco_IK\Modules\Import_Popup;
 
 use Croco_IK\Base\Module as Module_Base;
 use Croco_IK\Plugin as Plugin;
+use Croco_IK\Modules\License\API as License_API;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -49,6 +50,15 @@ class Module extends Module_Base {
 	 * @return [type]          [description]
 	 */
 	public function page_config( $config = array(), $subpage = '' ) {
+
+		$license_api = new License_API();
+
+		$is_active = $license_api->is_active();
+
+		if ( ! $is_active ) {
+			wp_redirect( Plugin::instance()->dashboard->page_url() );
+			die();
+		}
 
 		$skin        = isset( $_GET['skin'] ) ? $_GET['skin'] : false;
 		$is_uploaded = isset( $_GET['is_uploaded'] ) ? $_GET['is_uploaded'] : false;

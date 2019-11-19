@@ -34,8 +34,22 @@
 .cbw-block {
 	.license-panel &,
 	.connection-error-panel & {
-		width: 480px; // set to 530 when video will be added
-		flex: 0 0 480px;
+		width: 710px; // set to 530 when video will be added
+		flex: 0 0 710px;
+		.cbw-block-inner {
+			width: 480px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			position: relative;
+			z-index: 1;
+			padding: 20px 0 0 0;
+			text-align: center;
+			.cx-vui-component__meta {
+				align-items: center;
+			}
+		}
 		&.cbw-connection-error {
 			width: 80%;
 			max-width: 700px;

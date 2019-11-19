@@ -17,7 +17,7 @@
 				importData: {
 					status: false,
 					url: '',
-					statusString: 'Importing popup content...',
+					statusString: 'Importing popup templates...',
 				}
 			};
 		},
@@ -29,14 +29,25 @@
 				self.popups.forEach( function( item ) {
 
 					var active = null,
-						found  = true;
+						found  = false;
 
 					for ( var prop in item.filters ) {
 
 						active = self.activeFilters[ prop ];
 
-						if ( active && 0 > item.filters[ prop ].indexOf( active ) ) {
-							found = false;
+						if ( active && active.length ) {
+							for ( var i = 0; i < active.length; i++ ) {
+								if ( 0 <= item.filters[ prop ].indexOf( active[ i ] ) ) {
+									found = true;
+									break;
+								}
+							}
+						} else {
+							found = true;
+						}
+
+						if ( found ) {
+							break;
 						}
 
 					}
@@ -50,6 +61,22 @@
 			},
 		},
 		methods: {
+			applyFilter:  function( option, filter ) {
+				if ( this.isFilterActive( option, filter ) ) {
+					this.activeFilters[ filter ].splice( this.activeFilters[ filter ].indexOf( option ), 1 );
+				} else {
+					if ( ! this.activeFilters[ filter ] ) {
+						this.$set( this.activeFilters, filter, [] );
+					}
+					this.activeFilters[ filter ].push( option );
+				}
+			},
+			isFilterActive: function( option, filter ) {
+				if ( ! this.activeFilters[ filter ] ) {
+					return false;
+				}
+				return ( 0 <= this.activeFilters[ filter ].indexOf( option ) );
+			},
 			startImport: function( slug ) {
 
 				var self = this;
@@ -73,7 +100,7 @@
 					} else {
 						self.$set( self.importData, 'status', true );
 						self.$set( self.importData, 'url', response.data );
-						self.$set( self.importData, 'statusString', 'Done!' );
+						self.$set( self.importData, 'statusString', 'Hooray!<br>The popup has been installed' );
 					}
 
 				}).fail( function( xhr, textStatus, error ) {
@@ -85,7 +112,7 @@
 				this.importing = false;
 				this.$set( this.importData, 'status', false );
 				this.$set( this.importData, 'url', '' );
-				this.$set( this.importData, 'statusString', 'Importing popup content...' );
+				this.$set( this.importData, 'statusString', 'Importing popup templates...' );
 			},
 			goToPopup: function() {
 				this.importing = true;
@@ -109,9 +136,6 @@
 				type: String,
 				default: '',
 			},
-		},
-		mounted: function() {
-			console.log( this.popup );
 		},
 		data: function() {
 			return {
@@ -141,7 +165,6 @@
 
 			},
 			startInstall: function() {
-				console.log( this );
 				this.$emit( 'start-popup-import', this.slug );
 
 			}
