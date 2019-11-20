@@ -35,7 +35,10 @@
 				:popup="popup"
 				:slug="popup.slug"
 			></cbw-popup>
+		</div>
 	</div>
+	<div class="cbw-popups__clear-cache">
+		<a href="<?php echo add_query_arg( array( 'clear_cache' => 1 ) ); ?>"><?php _e( 'Check for new popups', 'crocoblock-interactive-kit' ); ?></a>
 	</div>
 	<cx-vui-popup
 		v-model="importing"
