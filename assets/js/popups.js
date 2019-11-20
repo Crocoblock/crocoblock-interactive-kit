@@ -117,7 +117,7 @@
 			goToPopup: function() {
 				this.importing = true;
 				if ( this.importData.url ) {
-					window.location = this.importData.url;
+					window.open( this.importData.url, '_blank' );
 				}
 			},
 		}
