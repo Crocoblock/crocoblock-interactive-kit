@@ -79,12 +79,13 @@ class Dashboard {
 	 */
 	public function register_menu_page() {
 
-		add_management_page(
-			__( 'Crocoblock Interactive Kit', 'croco-ik' ),
-			__( 'Crocoblock Interactive Kit', 'croco-ik' ),
+		add_menu_page(
+			__( 'Crocoblock Interactive Bundle', 'croco-ik' ),
+			__( 'Interactive Bundle', 'croco-ik' ),
 			'manage_options',
 			$this->page_slug,
-			array( $this, 'render_wizard' )
+			array( $this, 'render_wizard' ),
+			'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNiAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjQxMDMgNi4yMDUyNUMxNC4xMjM5IDYuMjA1MjUgMTUuNTEyOSA0LjgxNjA2IDE1LjUxMjkgMy4xMDI2M0MxNS41MTI5IDEuMzg5MiAxNC4xMjM5IDEuNDY5NjhlLTA4IDEyLjQxMDMgMS40Njk2OGUtMDhDMTIuNDA3NSAxLjQ2OTY4ZS0wOCAxMi40MDQ4IDAuMDAwNDA1NTMxIDEyLjQwMiAwLjAwMDQwNTUzMUM1LjU1MTkyIDAuMDA0ODY2NTMgLTIuMDExMTRlLTA4IDUuNTU5MjIgLTIuMDExMTRlLTA4IDEyLjQxMDVDLTIuMDExMTRlLTA4IDE5LjI2NDYgNS41NTYzOCAyNC44MjA4IDEyLjQxMDMgMjQuODIwOEMxNC4xMjM5IDI0LjgyMDggMTUuNTEyOSAyMy40MzE2IDE1LjUxMjkgMjEuNzE4MkMxNS41MTI5IDIwLjAwNDggMTQuMTIzOSAxOC42MTU2IDEyLjQxMDMgMTguNjE1NkMxMi40MDkzIDE4LjYxNTYgMTIuNDA4NSAxOC42MTU4IDEyLjQwNzUgMTguNjE1OEM4Ljk4MTgyIDE4LjYxNDEgNi4yMDUwNSAxNS44MzY2IDYuMjA1MDUgMTIuNDEwNUM2LjIwNTA1IDguOTgzNDQgOC45ODMyNCA2LjIwNTI1IDEyLjQxMDMgNi4yMDUyNVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkgNCkiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo='
 		);
 
 	}
@@ -96,7 +97,7 @@ class Dashboard {
 	 */
 	public function assets( $hook ) {
 
-		if ( 'tools_page_' . $this->page_slug !== $hook ) {
+		if ( 'toplevel_page_' . $this->page_slug !== $hook ) {
 			return;
 		}
 
@@ -217,7 +218,7 @@ class Dashboard {
 			$page_args = array_merge( $page_args, $args );
 		}
 
-		return add_query_arg( $page_args, admin_url( 'tools.php' ) );
+		return add_query_arg( $page_args, admin_url( 'admin.php' ) );
 	}
 
 	/**
