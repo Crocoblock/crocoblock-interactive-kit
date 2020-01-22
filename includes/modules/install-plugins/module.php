@@ -11,6 +11,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 class Module extends Module_Base {
 
+	private $plugins = false;
+	private $api     = null;
+
 	/**
 	 * Returns module slug
 	 *
@@ -18,6 +21,17 @@ class Module extends Module_Base {
 	 */
 	public function get_slug() {
 		return 'install-plugins';
+	}
+
+	/**
+	 * Init plugin actions
+	 *
+	 * @return [type] [description]
+	 */
+	public function init() {
+		if ( $this->is_module_page() ) {
+			$this->check_missed_plugins();
+		}
 	}
 
 	/**
@@ -38,6 +52,54 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Check missed plugins
+	 *
+	 * @return [type] [description]
+	 */
+	public function check_missed_plugins() {
+
+		$plugins        = $this->get_plugins();
+		$missed_plugins = array();
+
+		foreach ( $plugins as $slug => $plugin ) {
+
+			if ( empty( $plugin['function_name'] ) ) {
+				continue;
+			}
+
+			if ( ! function_exists( $plugin['function_name'] ) ) {
+
+				$missed_plugins[] = array(
+					'value' => $slug,
+					'label' => $plugin['name'],
+				);
+
+			}
+
+		}
+
+		if ( empty( $missed_plugins ) ) {
+			wp_redirect( Plugin::instance()->dashboard->page_url( 'import-popup' ) );
+			die();
+		}
+	}
+
+	/**
+	 * Get plugins
+	 *
+	 * @return [type] [description]
+	 */
+	public function get_plugins() {
+
+		if ( false === $this->plugins ) {
+			$this->api     = new API();
+			$this->plugins = $this->api->get_plugins();
+		}
+
+		return $this->plugins;
+	}
+
+	/**
 	 * License page config
 	 *
 	 * @param  array  $config  [description]
@@ -46,8 +108,11 @@ class Module extends Module_Base {
 	 */
 	public function page_config( $config = array(), $subpage = '' ) {
 
-		$api            = new API();
-		$plugins        = $api->get_plugins();
+		if ( ! $this->api ) {
+			$this->api = new API();
+		}
+
+		$plugins        = $this->get_plugins();
 		$missed_plugins = array();
 		$plugin_names   = array();
 
@@ -70,12 +135,7 @@ class Module extends Module_Base {
 
 		}
 
-		if ( empty( $missed_plugins ) ) {
-			wp_redirect( Plugin::instance()->dashboard->page_url( 'import-popup' ) );
-			die();
-		}
-
-		$plugins_included = get_option( $api->plugins_option );
+		$plugins_included = get_option( $this->api->plugins_option );
 
 		if ( $plugins_included ) {
 			$body = 'cbw-plugins';
