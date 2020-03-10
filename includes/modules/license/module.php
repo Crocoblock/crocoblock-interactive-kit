@@ -107,6 +107,7 @@ class Module extends Module_Base {
 				'message' => $license_api->get_error(),
 			) );
 		} else {
+			update_option( 'jet_theme_core_license', $license );
 			wp_send_json_success( array(
 				'message' => esc_html__( 'Your license is activated. Redirecting...', 'croco-ik' ),
 			) );
